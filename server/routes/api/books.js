@@ -20,13 +20,12 @@ router.get("/", (req, res) => {
 // @route GET api/books/:id
 // @desciription Get singl;;e book by id
 // @access Public
-router.get("/:id", (req, res) => {
-  Book.findById(req.params.id).then((book) =>
-    res
-      .json(book)
-      .catch((err) => res.status(404).json({ nobookfound: "No Book found" }))
-  );
+router.get('/:id', (req, res) => {
+  Book.findById(req.params.id)
+    .then(book => res.json(book))
+    .catch(err => res.status(404).json({ nobookfound: 'No Book found' }));
 });
+
 
 // @route GET api/books
 // @description add/save book
@@ -42,14 +41,12 @@ router.post('/', (req, res) => {
 //@route PUT api/books/:id
 //@description Update book
 //@access Public
-router.put("/:id", (req, res) => {
-  Book.findByIdAndUpdate(req.params.id, req.body).then((book) =>
-    res
-      .json({ msg: "Updates successfully" })
-      .catch((err) =>
-        res.status(400).json({ error: "Unable to update the database" })
-      )
-  );
+router.put('/:id', (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, req.body)
+    .then(book => res.json({ msg: 'Updated successfully' }))
+    .catch(err =>
+      res.status(400).json({ error: 'Unable to update the Database' })
+    );
 });
 
 // @route DELETE api/books/:id

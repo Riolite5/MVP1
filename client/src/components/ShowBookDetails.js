@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
-
+import { createHashHistory } from "history";
+export const history = createHashHistory();
 class showBookDetails extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +13,12 @@ class showBookDetails extends Component {
   }
 
   componentDidMount() {
-    // console.log("~~~~~~~~~~Print id: " + this.props.match.params.id);
+    let id_ =
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
+      ];
     axios
-      .get("http://localhost:8002/api/books/" + this.props.id)
+      .get("http://localhost:8002/api/books/" + String(id_))
       .then((res) => {
         // console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
@@ -30,10 +34,10 @@ class showBookDetails extends Component {
     axios
       .delete("http://localhost:8002/api/books/" + id)
       .then((res) => {
-        this.props.history.push("/");
+        history.push("/");
       })
       .catch((err) => {
-        console.log("Error form ShowBookDetails_deleteClick");
+        console.log(err.message);
       });
   }
 

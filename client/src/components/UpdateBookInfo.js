@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
+import { createHashHistory } from "history";
+export const history = createHashHistory();
 
 class UpdateBookInfo extends Component {
   constructor(props) {
@@ -17,9 +19,12 @@ class UpdateBookInfo extends Component {
   }
 
   componentDidMount() {
-    // console.log("Print id: " + this.props.match.params.id);
+    let id_ =
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
+      ];
     axios
-      .get("http://localhost:8002/api/books/" + this.props.match.params.id)
+      .get("http://localhost:8002/api/books/" + String(id_))
       .then((res) => {
         // this.setState({...this.state, book: res.data})
         this.setState({
@@ -41,6 +46,10 @@ class UpdateBookInfo extends Component {
   };
 
   onSubmit = (e) => {
+    let id_ =
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
+      ];
     e.preventDefault();
 
     const data = {
@@ -53,15 +62,12 @@ class UpdateBookInfo extends Component {
     };
 
     axios
-      .put(
-        "http://localhost:8002/api/books/" + this.props.match.params.id,
-        data
-      )
+      .put("http://localhost:8002/api/books/" + String(id_), data)
       .then((res) => {
-        this.props.history.push("/show-book/" + this.props.match.params.id);
+        history.push("/show-book/" + String(id_));
       })
       .catch((err) => {
-        console.log("Error in UpdateBookInfo!");
+        console.log(err.message);
       });
   };
 
@@ -140,7 +146,9 @@ class UpdateBookInfo extends Component {
                   placeholder="published_date"
                   name="published_date"
                   className="form-control"
-                  value={this.state.published_date}
+                  value={
+                    new Date().toISOString().replace("T", "/").split("/")[0]
+                  }
                   onChange={this.onChange}
                 />
               </div>

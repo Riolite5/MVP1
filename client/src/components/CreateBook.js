@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
-
+import { createHashHistory } from "history";
+export const history = createHashHistory();
 class CreateBook extends Component {
   constructor() {
     super();
@@ -43,7 +44,7 @@ class CreateBook extends Component {
           published_date: "",
           publisher: "",
         });
-        this.props.history.push("/");
+        history.push("/");
       })
       .catch((err) => {
         console.log("Error in CreateBook!");
