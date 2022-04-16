@@ -12,9 +12,9 @@ class showBookDetails extends Component {
   }
 
   componentDidMount() {
-    // console.log("Print id: " + this.props.match.params.id);
+    // console.log("~~~~~~~~~~Print id: " + this.props.match.params.id);
     axios
-      .get("http://localhost:8082/api/books/" + this.props.match.params.id)
+      .get("http://localhost:8002/api/books/" + this.props.id)
       .then((res) => {
         // console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
