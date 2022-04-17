@@ -4,7 +4,7 @@ import "./App.css";
 
 import CreateBook from "./components/CreateBookTest";
 import ShowBookList from "./components/ShowBookList";
-import ShowBookDetails from "./components/ShowBookDetails";
+import ShowBookDetails from "./components/ShowBookDetailsTest";
 import UpdateBookInfo from "./components/UpdateBookInfo";
 
 class App extends Component {
