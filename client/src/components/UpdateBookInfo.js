@@ -63,9 +63,7 @@ class UpdateBookInfo extends Component {
 
     axios
       .put("http://localhost:8002/api/books/" + String(id_), data)
-      .then((res) => {
-        history.push("/show-book/" + String(id_));
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err.message);
       });

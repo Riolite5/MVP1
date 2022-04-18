@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import { createHashHistory } from "history";
@@ -33,7 +33,7 @@ const CreateBook = () => {
           published_date: "",
           publisher: "",
         });
-        //redirect to homepage
+        <Navigate to="/" />;
       })
       .catch((err) => {
         console.log("Error in CreateBook!");

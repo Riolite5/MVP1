@@ -5,7 +5,7 @@ import "./App.css";
 import CreateBook from "./components/CreateBookTest";
 import ShowBookList from "./components/ShowBookListTest";
 import ShowBookDetails from "./components/ShowBookDetailsTest";
-import UpdateBookInfo from "./components/UpdateBookInfo";
+import UpdateBookInfo from "./components/UpdateBookInfoTest";
 
 class App extends Component {
   render() {
