@@ -4,10 +4,29 @@ var cors = require("cors");
 
 //routes
 const books = require("./routes/api/books");
+
+const keys = require("./config/keys");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+const authRoutes = require("./routes/auth-routes");
+
 const app = express();
+
+const passportSetup = require("./config/passport-setup");
 
 // Connect Database
 connectDB();
+
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey],
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/auth", authRoutes);
 
 //cors
 app.use(cors({ origin: true, credentials: true }));
