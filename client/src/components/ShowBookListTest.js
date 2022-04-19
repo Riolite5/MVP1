@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,15 +6,16 @@ import BookCard from "./BookCard";
 
 const ShowBookList = () => {
   const [books, setBooks] = useState([]);
-
-  axios
-    .get("http://localhost:8002/api/books")
-    .then((res) => {
-      setBooks(res.data);
-    })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:8002/api/books")
+      .then((res) => {
+        setBooks(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, []);
 
   let bookList;
   if (!books) {
