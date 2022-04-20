@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
@@ -20,19 +20,21 @@ const UpdateBookInfo = () => {
       window.location.pathname.split("/").length - 1
     ];
 
-  axios
-    .get("http://localhost:8002/api/books/" + String(id_))
-    .then((res) => {
-      // console.log(`The book id is ${id_} `);
-      setBook(res.data);
-    })
-    .catch((err) => {
-      console.log("Error from UpdateBookInfo");
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:8002/api/books/" + String(id_))
+      .then((res) => {
+        // console.log(`The book id is ${id_} `);
+        setBook(res.data);
+      })
+      .catch((err) => {
+        console.log("Error from UpdateBookInfo");
+      });
+  }, [id_]);
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
     setBook((values) => ({ ...values, [name]: value }));
   };
 
