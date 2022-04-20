@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import { createHashHistory } from "history";
@@ -11,26 +11,18 @@ const ShowBookDetails = () => {
     window.location.pathname.split("/")[
       window.location.pathname.split("/").length - 1
     ];
-  axios
-    .get("http://localhost:8002/api/books/" + String(id_))
-    .then((res) => {
-      // console.log("Print-showBookDetails-API-response: " + res.data);
-      setBook(res.data);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
 
-  const handleDelete = (id) => {
+  useEffect(() => {
     axios
-      .delete("http://localhost:8002/api/books/" + id)
+      .get("http://localhost:8002/api/books/" + String(id_))
       .then((res) => {
-        history.push("/");
+        // console.log("Print-showBookDetails-API-response: " + res.data);
+        setBook(res.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  };
+  }, [id_]);
 
   let BookItem = (
     <div>
@@ -100,13 +92,7 @@ const ShowBookDetails = () => {
 
         <div className="row">
           <div className="col-md-6">
-            <button
-              type="button"
-              className="btn btn-outline-danger btn-lg btn-block"
-              onClick={() => handleDelete(book._id)}
-            >
-              Delete Book
-            </button>
+            <DeleteButton book={book} />
             <br />
           </div>
 
@@ -125,6 +111,29 @@ const ShowBookDetails = () => {
             <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Book</button> */}
       </div>
     </div>
+  );
+};
+
+const DeleteButton = ({ book }) => {
+  const navigate = useNavigate();
+  const handleDelete = (id) => {
+    axios
+      .delete("http://localhost:8002/api/books/" + id)
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  return (
+    <button
+      type="button"
+      className="btn btn-outline-danger btn-lg btn-block"
+      onClick={() => handleDelete(book._id)}
+    >
+      Delete Book
+    </button>
   );
 };
 
